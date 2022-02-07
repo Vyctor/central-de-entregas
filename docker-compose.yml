@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  entregas-db:
+    image: postgres
+    container_name: entregas-db
+    restart: always
+    tty: true
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=entregas-db
