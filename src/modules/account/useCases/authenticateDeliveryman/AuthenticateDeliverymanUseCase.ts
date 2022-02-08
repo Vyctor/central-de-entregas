@@ -26,7 +26,7 @@ export class AuthenticateDeliverymanUseCase {
       {
         username,
       },
-      "ce439be833f152d645c9f18d7a9030a7",
+      process.env.SECRET_KEY as string,
       {
         subject: deliveryman.id,
         expiresIn: "1d",
