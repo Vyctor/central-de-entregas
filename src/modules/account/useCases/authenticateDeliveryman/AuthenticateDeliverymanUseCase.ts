@@ -3,6 +3,7 @@ import { prisma } from "../../../../database/primaClient";
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { AuthenticateDeliverymanDTO } from "../../dtos/AuthenticateDeliverymanDTO";
+import authConfig from "../../../../config/authConfig";
 
 export class AuthenticateDeliverymanUseCase {
   async execute({ username, password }: AuthenticateDeliverymanDTO) {
@@ -26,10 +27,10 @@ export class AuthenticateDeliverymanUseCase {
       {
         username,
       },
-      process.env.SECRET_KEY as string,
+      authConfig.secret_token,
       {
         subject: deliveryman.id,
-        expiresIn: "1d",
+        expiresIn: authConfig.expires_in_token,
       }
     );
 

@@ -2,6 +2,7 @@ import { prisma } from "../../../../database/primaClient";
 import { AuthenticateClientDTO } from "../../dtos/AuthenticateClient";
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
+import authConfig from "../../../../config/authConfig";
 
 export class AuthenticateClientUseCase {
   async execute({ username, password }: AuthenticateClientDTO) {
@@ -25,10 +26,10 @@ export class AuthenticateClientUseCase {
       {
         username,
       },
-      process.env.SECRET_KEY as string,
+      authConfig.secret_token,
       {
         subject: client.id,
-        expiresIn: "1d",
+        expiresIn: authConfig.expires_in_token,
       }
     );
 

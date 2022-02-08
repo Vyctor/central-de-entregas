@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { verify } from "jsonwebtoken";
+import authConfig from "../config/authConfig";
 
 interface IPayload {
   sub: string;
@@ -10,26 +11,25 @@ export async function ensureAuthenticateClient(
   response: Response,
   next: NextFunction
 ) {
-  const autHeader = request.headers.authorization;
+  const authHeader = request.headers.authorization;
+  const privateKey = authConfig.secret_token;
 
-  if (!autHeader) {
+  if (!authHeader) {
     return response.status(401).json({
       message: "Token is missing!",
     });
   }
 
-  const [_, token] = autHeader.split(" ");
+  const [_, token] = authHeader.split(" ");
 
   try {
-    const { sub } = verify(
-      token,
-      process.env.PRIVATE_KEY as string
-    ) as IPayload;
+    const { sub } = verify(token, privateKey) as IPayload;
 
     request.id_client = sub;
 
     return next();
   } catch (error) {
+    console.log("error: ", error);
     return response.status(401).json({
       message: "Invalid token",
     });
