@@ -1,11 +1,11 @@
 import { prisma } from "../../../../database/primaClient";
 import { Clients, Deliveries } from "@prisma/client";
 
-type ClientAndDeliveries =
-  | (Clients & {
-      deliveries: Deliveries[];
-    })
-  | null;
+type ClientAndDeliveries = {
+  deliveries: Deliveries[];
+  id: string;
+  username: string;
+} | null;
 
 export class FindAllDeliveriesByClientUseCase {
   async execute(id_client: string): Promise<ClientAndDeliveries> {
@@ -13,7 +13,9 @@ export class FindAllDeliveriesByClientUseCase {
       where: {
         id: id_client,
       },
-      include: {
+      select: {
+        id: true,
+        username: true,
         deliveries: true,
       },
     });
