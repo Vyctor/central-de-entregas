@@ -1,4 +1,4 @@
 #!/bin/bash
-yarn --verbose
+yarn
 yarn run prisma db push
 yarn run dev

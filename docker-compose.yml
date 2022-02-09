@@ -24,6 +24,10 @@ services:
       - .:/usr/app
     networks:
       - entregas-network
+    links:
+      - entregas-db
+    depends_on:
+      - entregas-db
 networks:
   entregas-network:
     driver: bridge
