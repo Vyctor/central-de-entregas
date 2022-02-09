@@ -8,8 +8,6 @@ export class FindAllDeliveriesByClientController {
     const findAllDeliveriesByClientUseCase =
       new FindAllDeliveriesByClientUseCase();
 
-    console.log(id_client);
-
     const allDeliveriesByClient =
       await findAllDeliveriesByClientUseCase.execute(id_client);
 

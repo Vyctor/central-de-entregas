@@ -2,9 +2,9 @@ import { prisma } from "../../../../database/primaClient";
 import { Clients, Deliveries } from "@prisma/client";
 
 type ClientAndDeliveries = {
-  deliveries: Deliveries[];
   id: string;
   username: string;
+  deliveries: Deliveries[];
 } | null;
 
 export class FindAllDeliveriesByClientUseCase {
